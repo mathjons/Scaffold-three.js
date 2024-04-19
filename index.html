@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>3D Construction Scaffold</title>
+  <style>
+    body { margin: 0; }
+    canvas { width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const scaffoldGeometry = new THREE.BoxGeometry(1, 1, 1);
+const scaffoldMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+
+const scaffold = new THREE.Group();
+
+const pole1 = new THREE.Mesh(scaffoldGeometry, scaffoldMaterial);
+pole1.scale.set(0.1, 2, 0.1);
+pole1.position.set(-0.5, 1, -0.5);
+scaffold.add(pole1);
+
+const pole2 = new THREE.Mesh(scaffoldGeometry, scaffoldMaterial);
+pole2.scale.set(0.1, 2, 0.1);
+pole2.position.set(0.5, 1, -0.5);
+scaffold.add(pole2);
+
+const pole3 = new THREE.Mesh(scaffoldGeometry, scaffoldMaterial);
+pole3.scale.set(0.1, 2, 0.1);
+pole3.position.set(-0.5, 1, 0.5);
+scaffold.add(pole3);
+
+const pole4 = new THREE.Mesh(scaffoldGeometry, scaffoldMaterial);
+pole4.scale.set(0.1, 2, 0.1);
+pole4.position.set(0.5, 1, 0.5);
+scaffold.add(pole4);
+
+const platform1 = new THREE.Mesh(scaffoldGeometry, scaffoldMaterial);
+platform1.scale.set(1.2, 0.1, 1.2);
+platform1.position.set(0, 0.5, 0);
+scaffold.add(platform1);
+
+const platform2 = new THREE.Mesh(scaffoldGeometry, scaffoldMaterial);
+platform2.scale.set(1.2, 0.1, 1.2);
+platform2.position.set(0, 1.5, 0);
+scaffold.add(platform2);
+
+scene.add(scaffold);
+
+camera.position.set(3, 3, 3);
+camera.lookAt(0, 1, 0);
+
+function animate() {
+  requestAnimationFrame(animate);
+  scaffold.rotation.y += 0.01; // Rotate the scaffold around the Y-axis
+  renderer.render(scene, camera);
+}
+animate();
+  </script>
+</body>
+</html>
